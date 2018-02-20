@@ -31,15 +31,10 @@ exports.setValue = function(path, updates) {
   });
 };
 
-exports.getValue = function (key, namespace, success, error) {
-    var args = [key];
-    if (typeof namespace === 'string') {
-        args.push(namespace);
-    } else {
-        error = success;
-        success = namespace;
-    }
-    exec(success, error, "FirebaseDatabasePlugin", "getValue", args);
+exports.getValue = function (path, key) {
+    return new Promise(function(success, error) {
+        exec(success, error, "FirebaseDatabasePlugin", "getValue", [path, key]);
+    });
 };
 
 exports.getInfo = function (success, error) {

@@ -1,11 +1,6 @@
 # cordova-plugin-firebase-realtime-database
 Cordova plugin for Google Firebase Realtime Database
-Based on the the [Firebase Notification / FCM plugin](https://github.com/arnesson/cordova-plugin-firebase)
-
-
-## Support
-Please file bugs in [Issues](https://github.com/hbmartin/cordova-plugin-firebase-realtime-database/issues)
-Ask for help in #cordova on the [Firebase Community Slack](https://firebase-community.appspot.com)
+Based on the the Firebase Notification / FCM plugin https://github.com/arnesson/cordova-plugin-firebase
 
 ## Installation
 See npm package for versions - https://www.npmjs.com/package/cordova-plugin-firebase-realtime-database
@@ -36,19 +31,6 @@ This plugin uses a hook (after prepare) that copies the configuration files to t
 ### Notes about PhoneGap Build
 
 Hooks does not work with PhoneGap Build. This means you will have to manually make sure the configuration files are included. One way to do that is to make a private fork of this plugin and replace the placeholder config files (see src/ios and src/android) with your actual ones.
-
-### Notes about Android Build
-
-You will have to manually add the following to platforms/android/build.gradle (around line 34:
-```
-buildscript {
-	...
-	dependencies { 
-		...
-		classpath 'com.google.gms:google-services:3.0.0'
-	}
-}
-````
 
 ## Methods
 

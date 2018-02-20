@@ -41,8 +41,9 @@ import java.util.Set;
 public class FirebaseDatabasePlugin extends CordovaPlugin {
     private final String TAG = "FirebaseDatabasePlugin";
 
-    private DatabaseReference mDatabase;
-    private FirebaseAuth mAuth;
+    private static FirebaseDatabase firebaseRef;
+    private static DatabaseReference mDatabase;
+    private static FirebaseAuth mAuth;
     private static WeakReference<CallbackContext> callbackContext;
 
     @Override
@@ -51,10 +52,25 @@ public class FirebaseDatabasePlugin extends CordovaPlugin {
         this.cordova.getThreadPool().execute(new Runnable() {
             public void run() {
                 Log.d(TAG, "Starting Firebase plugin");
-                mDatabase = FirebaseDatabase.getInstance().getReference();
+
+                mDatabase = getDatabase().getReference();
                 mAuth = FirebaseAuth.getInstance();
             }
         });
+    }
+    private static FirebaseDatabase getDatabase() {
+        try {
+            if (mDatabase == null || firebaseRef == null) {
+                firebaseRef = FirebaseDatabase.getInstance();
+                firebaseRef.setPersistenceEnabled(true);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            return firebaseRef;
+        }
     }
 
     @Override
@@ -73,6 +89,9 @@ public class FirebaseDatabasePlugin extends CordovaPlugin {
             return true;
         } else if (action.equals("setValue")) {
             this.setValue(callbackContext, args.getString(0), args.getJSONObject(1));
+            return true;
+        } else if (action.equals("getValue")) {
+            this.getValue(callbackContext, args.getString(0), args.getString(1));
             return true;
         } else if (action.equals("setDatabasePersistent")) {
             this.setPersistenceEnabled(callbackContext, args.getBoolean(0));
@@ -136,6 +155,34 @@ public class FirebaseDatabasePlugin extends CordovaPlugin {
         });
     }
 
+    private void getValue(final CallbackContext callbackContext, final String path, final String key) {
+        cordova.getThreadPool().execute(new Runnable() {
+            public void run() {
+                mDatabase.child(path).child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        try {
+                            Object value = dataSnapshot.getValue();
+                            if (value != null) {
+                                callbackContext.success(value.toString());
+                            }
+                            else {
+                                callbackContext.error(key + ", Not Available");
+                            }
+                        }
+                        catch(Exception e) {
+                            callbackContext.error(e.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError firebaseError) {
+                        callbackContext.error(firebaseError.getMessage());
+                    }
+                });
+            }
+        });
+    }
     private void setPersistenceEnabled(final CallbackContext callbackContext, final boolean persistent) {
         cordova.getThreadPool().execute(new Runnable() {
             public void run() {
@@ -154,7 +201,7 @@ public class FirebaseDatabasePlugin extends CordovaPlugin {
                             if (task == null || !task.isSuccessful()) {
                                 callbackContext.error(task.getException().toString());
                             } else {
-                                callbackContext.success("");
+                                callbackContext.success(mAuth.getUid());
                             }
                         }
                     }

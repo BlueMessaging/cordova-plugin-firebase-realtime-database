@@ -1,15 +1,35 @@
 {
+  "_from": "cordova-plugin-firebase-realtime-database@0.0.2",
+  "_id": "cordova-plugin-firebase-realtime-database@0.0.2",
+  "_inBundle": false,
+  "_integrity": "sha1-Zb+tXqmGmoZFGB+u1VFeO0Vi0A0=",
+  "_location": "/cordova-plugin-firebase-realtime-database",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "cordova-plugin-firebase-realtime-database@0.0.2",
+    "name": "cordova-plugin-firebase-realtime-database",
+    "escapedName": "cordova-plugin-firebase-realtime-database",
+    "rawSpec": "0.0.2",
+    "saveSpec": null,
+    "fetchSpec": "0.0.2"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-firebase-realtime-database/-/cordova-plugin-firebase-realtime-database-0.0.2.tgz",
+  "_shasum": "65bfad5ea9869a8645181faed5515e3b4562d00d",
+  "_spec": "cordova-plugin-firebase-realtime-database@0.0.2",
+  "_where": "C:\\Users\\JorgeA\\Documents\\GitHub\\webBMFCordova\\node_modules",
   "author": {
     "name": "H Martin"
   },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/hbmartin/cordova-plugin-firebase-realtime-database"
+  "bugs": {
+    "url": "https://github.com/hbmartin/cordova-plugin-firebase-realtime-database/issues"
   },
-  "name": "cordova-plugin-firebase-realtime-database",
-  "version": "0.0.2",
-  "description": "Cordova plugin for Google Firebase Realtime Database",
+  "bundleDependencies": false,
   "cordova": {
     "id": "cordova-plugin-firebase-realtime-database",
     "platforms": [
@@ -18,6 +38,9 @@
       "browser"
     ]
   },
+  "deprecated": false,
+  "description": "Cordova plugin for Google Firebase Realtime Database",
+  "homepage": "https://github.com/hbmartin/cordova-plugin-firebase-realtime-database#readme",
   "keywords": [
     "ecosystem:cordova",
     "cordova-android",
@@ -26,5 +49,12 @@
     "firebase",
     "realtime",
     "database"
-  ]
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-firebase-realtime-database",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hbmartin/cordova-plugin-firebase-realtime-database.git"
+  },
+  "version": "0.0.2"
 }
